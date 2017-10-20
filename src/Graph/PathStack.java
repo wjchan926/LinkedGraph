@@ -1,6 +1,7 @@
+package Graph;
+
 /**
- * Generic Stack class that will be used to hold the possible pathways in the
- * graph. Uses a linked list implementation.
+ * Generic Stack class that will be used to mark the nodes when traversing the graph
  * 
  * @author wchan
  *
@@ -9,9 +10,9 @@ public class PathStack<T> {
 
 	private Node top;
 	private int size;
-
+	
 	/**
-	 * Generic node class for PathStack.
+	 * Generic node class.
 	 * 
 	 * @author wchan
 	 *
@@ -20,7 +21,7 @@ public class PathStack<T> {
 		private T data;
 		private Node next;
 	}
-
+	
 	/**
 	 * Default constructor for PathStack class.
 	 */
