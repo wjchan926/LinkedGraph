@@ -1,4 +1,4 @@
-package Graph;
+package graph;
 
 /**
  * Generic Stack class that will be used to mark the nodes when traversing the graph

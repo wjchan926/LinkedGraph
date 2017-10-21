@@ -1,11 +1,11 @@
-package Graph;
+package graph;
 
 public class Graph {
 
 	private int numVertex;
 	private boolean[][] adjMatrix;
 	private PathStack<Integer> pathStack;
-	private PathList<PathList> pathList;
+	private PathList<PathList<Integer>> pathList;
 	private boolean[] visitedVertex;
 
 	/**
@@ -19,27 +19,28 @@ public class Graph {
 		adjMatrix = new boolean[numVertex][numVertex];
 		pathStack = new PathStack<Integer>();
 		visitedVertex = new boolean[numVertex];
-		pathList = new PathList<PathList>();
+		pathList = new PathList<PathList<Integer>>();
 	}
 
-	public void traverse(int vertex, PathList<Integer> path) {
+	public void traverse(int vertex, PathList<Integer> path, int current) {
 		// DFS, Must be Recursive
 		/*
 		 * 1. Push Vertex to stack 2. Mark as visited 3. Check for adjacent Vertices 4.
 		 * If there are none, pop from stack 5. Move to next adjacent vertex
 		 */
-
+		
 		pathStack.push(vertex);
 		visitedVertex[vertex] = true;
 
-		for (int i = 0; i < numVertex; i++) {			
+		for (int i = 0; i < numVertex; i++) {		
+			if (vertex == current) {
+				visitedCode(path, i);
+				path.removeLast();
+				continue;
+			}
 			if (adjMatrix[vertex][i] && !visitedVertex[i]) {
-				PathList<Integer> tempPath = new PathList<Integer>();
-				tempPath = path;
-				tempPath.append(i);
-				pathList.append(tempPath);
-				path = tempPath;
-				traverse(i, path);
+				visitedCode(path, i);
+				traverse(i, path, current);
 			}
 		}
 
@@ -47,6 +48,13 @@ public class Graph {
 		path.removeLast();
 		visitedVertex[vertex] = false;
 
+	}
+	
+	private void visitedCode(PathList<Integer> path, int visiting) {
+		PathList<Integer> tempPath = new PathList<Integer>();
+		tempPath = path;
+		tempPath.append(visiting);
+		pathList.append(tempPath);
 	}
 
 	private boolean hasEdge(int i, int j) {

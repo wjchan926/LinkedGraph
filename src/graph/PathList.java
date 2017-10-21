@@ -1,4 +1,4 @@
-package Graph;
+package graph;
 
 /**
  * Generic List class that will be used to hold the possible pathways in the
