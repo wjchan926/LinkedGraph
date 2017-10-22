@@ -51,7 +51,7 @@ public class PathListTest {
 		pathList.append(vertList);
 		pathList.append(vertList2);
 		
-		String expected = "1 -> 2 -> 3\n4 -> 5 -> 6\n";
+		String expected = "1 -> 2 -> 3\n4 -> 5 -> 6";
 		
 		String output = pathList.toString();
 		

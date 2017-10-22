@@ -82,5 +82,19 @@ public class PathStack<T> {
 	private boolean isEmpty() {
 		return top == null;
 	}
+	
+	@Override
+	public String toString() {
+		Node currentNode = new Node();
+		currentNode = top;
+		
+		StringBuffer sb = new StringBuffer();
+		
+		while(currentNode != null) {
+			sb.append(currentNode.data).append(" | ");
+			currentNode = currentNode.next;
+		}
+		return sb.toString();
+	}
 
 }

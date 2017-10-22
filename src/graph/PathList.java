@@ -37,6 +37,14 @@ public class PathList<T> {
 	public int getSize() {
 		return size;
 	}
+	
+	public Node getHead() {
+		return head;
+	}
+	
+	public Node getTail() {
+		return tail;
+	}
 
 	public void append(T t) {
 		if (isEmpty()) {
@@ -63,6 +71,9 @@ public class PathList<T> {
 	public void removeLast() throws NullPointerException {
 		if (isEmpty()) {
 			throw new NullPointerException("List is empty");
+		} else if (head == tail) {
+			head = null;
+			tail = null;
 		} else {
 			tail = tail.prev;
 			tail.next.prev = null;
@@ -72,11 +83,18 @@ public class PathList<T> {
 
 	}
 
-	/*
-	 * public void copy(PathList<T> pathList) { Node currentNode = head; while(head
-	 * != null) { Node newNode = new Node(); newNode.data = currentNode.data;
-	 * currentNode = currentNode.next; } }
-	 */
+	public PathList<T> copy() {
+		PathList<T> tempPathList = new PathList<T>();
+		
+		Node currentNode = head;
+				
+		while (currentNode != null) {		
+			tempPathList.append(currentNode.data);
+			currentNode = currentNode.next;
+		}
+		
+		return tempPathList;
+	}
 
 	private boolean isEmpty() {
 		return size == 0;
@@ -103,6 +121,6 @@ public class PathList<T> {
 				currentNode = currentNode.next;
 			}
 		}
-		return sb.toString();
+		return sb.toString().trim();
 	}
 }

@@ -14,26 +14,40 @@ public class Graph {
 	 * @param i
 	 *            Number of Vertices or Nodes in the graph
 	 */
-	Graph(int i) {
-		numVertex = i;
-		adjMatrix = new boolean[numVertex][numVertex];
+	Graph(boolean[][] matrix) {
+		numVertex = matrix.length;
+		adjMatrix = matrix;
 		pathStack = new PathStack<Integer>();
 		visitedVertex = new boolean[numVertex];
 		pathList = new PathList<PathList<Integer>>();
+		// adjMatrix = new boolean[][] { { false, true, true, false }, { true, true,
+		// true, true },
+		// { true, false, false, false }, { true, false, false, true } };
+		// adjMatrix = new boolean[][] {{false, true},{false, false}};
 	}
 
-	public void traverse(int vertex, PathList<Integer> path, int current) {
+	public PathList<PathList<Integer>> getPathList() {
+		return pathList;
+	}
+
+	public int getNumVertex() {
+		return numVertex;
+	}
+
+	public void traverse(int i) {
+		PathList<Integer> path = new PathList<Integer>();
+		path.append(i);
+		traverse(i, path, i);
+	}
+
+	private void traverse(int vertex, PathList<Integer> path, int current) {
 		// DFS, Must be Recursive
-		/*
-		 * 1. Push Vertex to stack 2. Mark as visited 3. Check for adjacent Vertices 4.
-		 * If there are none, pop from stack 5. Move to next adjacent vertex
-		 */
-		
+
 		pathStack.push(vertex);
 		visitedVertex[vertex] = true;
 
-		for (int i = 0; i < numVertex; i++) {		
-			if (vertex == current) {
+		for (int i = 0; i < numVertex; i++) {
+			if (i == current && adjMatrix[vertex][i]) {
 				visitedCode(path, i);
 				path.removeLast();
 				continue;
@@ -49,11 +63,11 @@ public class Graph {
 		visitedVertex[vertex] = false;
 
 	}
-	
+
 	private void visitedCode(PathList<Integer> path, int visiting) {
 		PathList<Integer> tempPath = new PathList<Integer>();
-		tempPath = path;
-		tempPath.append(visiting);
+		path.append(visiting);
+		tempPath = path.copy();
 		pathList.append(tempPath);
 	}
 

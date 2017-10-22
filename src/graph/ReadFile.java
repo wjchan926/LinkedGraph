@@ -63,10 +63,7 @@ public class ReadFile {
 
 		for (int i = 0; i < fileLines.length; i++) {
 			fileLines[i] = input.readLine();
-			/*
-			 * int numVertices = Integer.parseInt(input.readLine()); numMatrices++; i++; for
-			 * (int j = 0; j < numVertices; j++, i++) { fileLines[i] = input.readLine(); }
-			 */
+			
 
 		}
 		input.close();
