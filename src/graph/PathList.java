@@ -106,7 +106,7 @@ public class PathList<T> {
 		Node currentNode = head;
 
 		if (isEmpty()) {
-			return sb.append("No Pathways.").toString();
+			return sb.append("No Pathways in Graph.").toString();
 		} else {
 			while (currentNode != null && currentNode.data != null) {
 				if (currentNode.data instanceof PathList) {

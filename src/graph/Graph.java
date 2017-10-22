@@ -33,7 +33,10 @@ public class Graph {
 	public int getNumVertex() {
 		return numVertex;
 	}
-
+	
+	public boolean[][] getAdjMatrix(){
+		return adjMatrix;
+	}
 	public void traverse(int i) {
 		PathList<Integer> path = new PathList<Integer>();
 		path.append(i);

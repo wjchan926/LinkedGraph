@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class GraphLogTest {
 
-	@Test
+	/*@Test
 	public void test() {
 		GraphLog log = new GraphLog(null, null, null);
 		for (int[] i : log.createRawHeaders()) {
@@ -29,7 +29,7 @@ public class GraphLogTest {
 		for (int i = 0; i < 16; i++) {
 			System.out.println(log.headers[i]);
 		}
-		
-	}
+		*/
+	
 
 }

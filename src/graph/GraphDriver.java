@@ -16,13 +16,10 @@ public class GraphDriver {
 		for (int i = 0; i < sourceFile.getNumMatrices(); i++) {
 			Graph graph = new Graph(matrixParser.parse());
 			for (int j = 0; j < graph.getNumVertex(); j++) {
-				graph.traverse(j);
-				graph.getPathList();
-				// sort
-				// Log
-				// write from the log
+				graph.traverse(j);				
 			}
-
+			GraphLog graphLog = new GraphLog(graph.getAdjMatrix(), graph.getPathList().toString(), outputFile);
+			graphLog.write();
 		}
 
 	}
