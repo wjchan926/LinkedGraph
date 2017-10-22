@@ -25,10 +25,10 @@ public class ReadFile {
 	 *             throws exception if it cannot find the file
 	 */
 	public ReadFile(String fileName) throws IOException {
-		numMatrices = 0;
 		f = new File(fileName);
-		fileLines = new String[countLines() - 1];
+		fileLines = new String[countLines()];
 		readFromFile();
+		calcNumMatrices();
 	}
 
 	/**
@@ -48,6 +48,10 @@ public class ReadFile {
 	public String[] getFileLines() {
 		return fileLines;
 	}
+	
+	public int getNumMatrices() {
+		return numMatrices;
+	}
 
 	/**
 	 * Reads the file line by line and stores each in an index of the fileLines
@@ -63,19 +67,19 @@ public class ReadFile {
 
 		for (int i = 0; i < fileLines.length; i++) {
 			fileLines[i] = input.readLine();
-			
-
 		}
 		input.close();
 
 	}
-
-	/**
-	 * Returns the number adjacency matrices in the input file
-	 * @return number of adjacency matrices
-	 */
-	public int getNumMatrices() {
-		return numMatrices;
+	
+	private void calcNumMatrices() {
+		int size = Integer.parseInt(fileLines[0]);
+		numMatrices++;
+		
+		for (int i = size+1; i < fileLines.length; i=i+size+1) {
+			numMatrices++;
+			size = Integer.parseInt(fileLines[i]);
+		}		
 	}
 
 	/**
@@ -88,7 +92,7 @@ public class ReadFile {
 	 */
 	private int countLines() throws IOException {
 
-		InputStream inputFile = new BufferedInputStream(new FileInputStream(f.getName()));
+		InputStream inputFile = new BufferedInputStream(new FileInputStream(f.getAbsolutePath()));
 
 		try {
 			byte[] c = new byte[1024];

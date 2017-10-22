@@ -21,7 +21,9 @@ public class GraphDriver {
 			GraphLog graphLog = new GraphLog(graph.getAdjMatrix(), graph.getPathList().toString(), outputFile);
 			graphLog.write();
 		}
-
+		
+		outputFile.closeFile();
+		System.out.println("Graphs Analyzed");
 	}
 
 }

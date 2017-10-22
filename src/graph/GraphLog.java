@@ -8,6 +8,7 @@ public class GraphLog {
 	private WriteFile outputFile;
 	private int[][] rawHeaders;
 	private String[] headers;
+	private static int counter = 1;
 
 	GraphLog(boolean[][] adjMatrix, String paths, WriteFile outputFile) {
 		this.adjMatrix = adjMatrix;
@@ -22,20 +23,22 @@ public class GraphLog {
 		StringBuffer log = new StringBuffer();
 
 		// Echo Adjacency Matrix
+		log.append(horizontalRule());
+		log.append("Matrix " + counter + "\n");
+		counter++;
+		log.append(horizontalRule());
 		log.append(matrixToString());
 		log.append(horizontalRule());
 		// List possible pathways
 		for (int row = 0; row < headers.length; row++) {
 			log.append(headers[row]);
-			for (int vertices = 0; vertices < adjMatrix.length; vertices++, row++) {
-				log.append(linearSearch(Integer.toString(rawHeaders[vertices + row][0]),
-						Integer.toString(rawHeaders[vertices + row][1])));
-			}
-			log.append(horizontalRule());
+			// for (int vertices = 0; vertices < adjMatrix.length; vertices++) {
+			log.append(linearSearch(Integer.toString(rawHeaders[row][0]), Integer.toString(rawHeaders[row][1])));
+			// }
 			log.append(horizontalRule());
 		}
-
-		outputFile.writeToFile(paths);
+		log.append("\n");
+		outputFile.writeToFile(log.toString());
 	}
 
 	/**
@@ -65,7 +68,7 @@ public class GraphLog {
 		}
 
 		if (!pathFound) {
-			sb.append("No Paths Found.");
+			sb.append("No Paths Found.\n");
 		}
 
 		return sb.toString();
@@ -73,7 +76,7 @@ public class GraphLog {
 	}
 
 	private String horizontalRule() {
-		return "------------------------------------";
+		return "------------------------------------\n";
 	}
 
 	private String matrixToString() {
@@ -81,7 +84,11 @@ public class GraphLog {
 
 		for (int row = 0; row < adjMatrix.length; row++) {
 			for (int col = 0; col < adjMatrix[row].length; col++) {
-				sb.append(adjMatrix[row][col]).append(" ");
+				if (adjMatrix[row][col]) {
+					sb.append("1").append(" ");
+				} else {
+					sb.append("0").append(" ");
+				}
 			}
 			sb.append("\n");
 		}
@@ -90,7 +97,7 @@ public class GraphLog {
 	}
 
 	private void createHeaders() {
-		String template = "Path From %d to %d";
+		String template = "Path(s) From %d to %d: \n";
 
 		for (int row = 0; row < rawHeaders.length; row++) {
 			headers[row] = String.format(template, rawHeaders[row][0], rawHeaders[row][1]);
@@ -98,7 +105,7 @@ public class GraphLog {
 	}
 
 	private void createRawHeaders() {
-		int numHeaders = 4;
+		int numHeaders = adjMatrix.length;
 
 		int n = numHeaders * numHeaders;
 		rawHeaders = new int[n][2];
