@@ -57,7 +57,4 @@ public class Graph {
 		pathList.append(tempPath);
 	}
 
-	private boolean hasEdge(int i, int j) {
-		return adjMatrix[i][j];
-	}
 }

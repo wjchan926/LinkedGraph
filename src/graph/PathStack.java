@@ -1,7 +1,8 @@
 package graph;
 
 /**
- * Generic Stack class that will be used to mark the nodes when traversing the graph
+ * Generic Stack class that will be used to mark the nodes when traversing the
+ * graph
  * 
  * @author wchan
  *
@@ -10,7 +11,7 @@ public class PathStack<T> {
 
 	private Node top;
 	private int size;
-	
+
 	/**
 	 * Generic node class.
 	 * 
@@ -21,7 +22,7 @@ public class PathStack<T> {
 		private T data;
 		private Node next;
 	}
-	
+
 	/**
 	 * Default constructor for PathStack class.
 	 */
@@ -45,15 +46,16 @@ public class PathStack<T> {
 	}
 
 	/**
-	 * Removes the top vertex from the stack and returns the vertex value. Decreases
-	 * the size of the stack by 1.
+	 * * Removes the top vertex from the stack and returns the vertex value.
+	 * Decreases the size of the stack by 1.
 	 * 
-	 * @return value of the vertex at the top of the stack, null if the stack is
-	 *         empty
+	 * @return value of the vertex at the top of the stack
+	 * @throws NullPointerException
+	 *             if the stack is empty
 	 */
-	public T pop() {
+	public T pop() throws NullPointerException {
 		if (isEmpty()) {
-			return null;
+			throw new NullPointerException("Stack is Empty.");
 		} else {
 			T t = top.data;
 			top = top.next;

@@ -3,8 +3,8 @@ package graph;
 import java.io.*;
 
 /**
- * This class reads the input data for the Graph adjacency matrices. There are no
- * Graph functions or calculations found in this class. This class is solely
+ * This class reads the input data for the Graph adjacency matrices. There are
+ * no Graph functions or calculations found in this class. This class is solely
  * used for read/write purposes.
  * 
  * @author Wesley Chan
@@ -13,7 +13,8 @@ import java.io.*;
 public class ReadFile {
 
 	private File f;
-	private String[][] fileLines;
+	private String[] fileLines;
+	private int numMatrices;
 
 	/**
 	 * Constructor with filepath as an argument
@@ -24,8 +25,9 @@ public class ReadFile {
 	 *             throws exception if it cannot find the file
 	 */
 	public ReadFile(String fileName) throws IOException {
+		numMatrices = 0;
 		f = new File(fileName);
-		fileLines = new String[countLines() - 1][3];
+		fileLines = new String[countLines() - 1];
 		readFromFile();
 	}
 
@@ -43,13 +45,13 @@ public class ReadFile {
 	 * 
 	 * @return fileLines array
 	 */
-	public String[][] getFileLines() {
+	public String[] getFileLines() {
 		return fileLines;
 	}
 
 	/**
 	 * Reads the file line by line and stores each in an index of the fileLines
-	 * array. Start at 2 because first 2 lines of input are just header info.
+	 * array.
 	 * 
 	 * @throws IOException
 	 *             throws exception if it cannot find the file
@@ -58,18 +60,30 @@ public class ReadFile {
 
 		FileReader fr = new FileReader(f);
 		BufferedReader input = new BufferedReader(fr);
-		input.readLine();
-		input.readLine();
+
 		for (int i = 0; i < fileLines.length; i++) {
-			fileLines[i] = input.readLine().split("\\s+");
+			fileLines[i] = input.readLine();
+			/*
+			 * int numVertices = Integer.parseInt(input.readLine()); numMatrices++; i++; for
+			 * (int j = 0; j < numVertices; j++, i++) { fileLines[i] = input.readLine(); }
+			 */
+
 		}
 		input.close();
 
 	}
 
 	/**
-	 * Method that counts the number of lines in the data source file. It
-	 * utilizes a buffered binary read.
+	 * Returns the number adjacency matrices in the input file
+	 * @return number of adjacency matrices
+	 */
+	public int getNumMatrices() {
+		return numMatrices;
+	}
+
+	/**
+	 * Method that counts the number of lines in the data source file. It utilizes a
+	 * buffered binary read.
 	 * 
 	 * @return count the number of lines in file
 	 * @throws IOException
