@@ -95,7 +95,7 @@ public class PathList<T> {
 	 */
 	public void removeLast() {
 		if (isEmpty()) {
-			throw new NullPointerException("List is empty");
+			throw new NullPointerException("List is empty.");
 		} else if (head == tail) {
 			head = null;
 			tail = null;
@@ -151,7 +151,7 @@ public class PathList<T> {
 			while (currentNode != null && currentNode.data != null) {
 				if (currentNode.data instanceof PathList) {
 					sb.append(currentNode.data.toString());
-					sb.append("\n");
+					sb.append("\r\n");
 				} else {
 					sb.append(currentNode.data);
 					if (currentNode != tail) {

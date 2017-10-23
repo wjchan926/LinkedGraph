@@ -27,7 +27,7 @@ public class ReadFile {
 	 */
 	public ReadFile(String fileName) throws IOException {
 		f = new File(fileName);
-		fileLines = new String[countLines()];
+		fileLines = new String[countLines()+1];
 		readFromFile();
 		calcNumMatrices();
 	}

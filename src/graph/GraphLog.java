@@ -50,7 +50,7 @@ public class GraphLog {
 
 		// Echo Adjacency Matrix
 		log.append(horizontalRule());
-		log.append("Matrix " + counter + "\n");
+		log.append("Matrix " + counter + "\r\n");
 		counter++;
 		log.append(horizontalRule());
 		log.append(matrixToString());
@@ -63,7 +63,7 @@ public class GraphLog {
 			// }
 			log.append(horizontalRule());
 		}
-		log.append("\n");
+		log.append("\r\n");
 		outputFile.writeToFile(log.toString());
 	}
 
@@ -85,16 +85,16 @@ public class GraphLog {
 
 		boolean pathFound = false;
 		// split paths by new line and trim
-		String[] splitPaths = paths.split("\\s*\\r?\\n\\s*");
+		String[] splitPaths = paths.split("\\s*\\r?\\r\n\\s*");
 		for (String s : splitPaths) {
 			if (s.startsWith(startVertex) && s.endsWith(endVertex)) {
-				sb.append(s).append("\n");
+				sb.append(s).append("\r\n");
 				pathFound = true;
 			}
 		}
 
 		if (!pathFound) {
-			sb.append("No Paths Found.\n");
+			sb.append("No Paths Found.\r\n");
 		}
 
 		return sb.toString();
@@ -105,7 +105,7 @@ public class GraphLog {
 	 * Creates a horizontal rule
 	 */
 	private String horizontalRule() {
-		return "------------------------------------\n";
+		return "------------------------------------\r\n";
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class GraphLog {
 					sb.append("0").append(" ");
 				}
 			}
-			sb.append("\n");
+			sb.append("\r\n");
 		}
 
 		return sb.toString();
@@ -134,7 +134,7 @@ public class GraphLog {
 	 * Creates the headers for the possible paths in the graph
 	 */
 	private void createHeaders() {
-		String template = "Path(s) From %d to %d: \n";
+		String template = "Path(s) From %d to %d: \r\n";
 
 		for (int row = 0; row < rawHeaders.length; row++) {
 			headers[row] = String.format(template, rawHeaders[row][0], rawHeaders[row][1]);
