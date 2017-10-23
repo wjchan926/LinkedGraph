@@ -83,6 +83,10 @@ public class PathStack<T> {
 		return top == null;
 	}
 	
+	/**
+	 * This method Overrides the toString() method and is used for testing purposes.
+	 * It returns a string representation of the stack.
+	 */
 	@Override
 	public String toString() {
 		Node currentNode = new Node();

@@ -17,7 +17,7 @@ public class WriteFile {
 	private PrintWriter printFile;
 
 	/**
-	 * Constructor for WriteFile class with a filepath as a argument
+	 * Constructor for WriteFile class with a filepath as an argument
 	 * 
 	 * @param s
 	 *            filepath

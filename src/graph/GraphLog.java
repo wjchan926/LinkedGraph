@@ -2,6 +2,14 @@ package graph;
 
 import java.io.IOException;
 
+/**
+ * This Log class is responsible for formatting the graph analysis data and
+ * streaming it to the output file. Output file formatting is all controlled
+ * here and can be changed with this class if needed.
+ * 
+ * @author Wesley Chan
+ *
+ */
 public class GraphLog {
 	private boolean[][] adjMatrix;
 	private String paths;
@@ -10,6 +18,17 @@ public class GraphLog {
 	private String[] headers;
 	private static int counter = 1;
 
+	/**
+	 * Constructor for the GraphLog class that accepts 3 arguments.
+	 * 
+	 * @param adjMatrix
+	 *            is a 2D boolean array of the adjacency matrix that was used to
+	 *            create a Directed Graph data structure
+	 * @param paths
+	 *            is a String all possible paths from the analyzed graph
+	 * @param outputFile
+	 *            is the output file
+	 */
 	GraphLog(boolean[][] adjMatrix, String paths, WriteFile outputFile) {
 		this.adjMatrix = adjMatrix;
 		this.paths = paths;
@@ -19,6 +38,13 @@ public class GraphLog {
 		createHeaders();
 	}
 
+	/**
+	 * Formats all the analyzed data and streams the data to the output file. Adds
+	 * line breaks and horizontal rules for readability.
+	 * 
+	 * @throws IOException
+	 *             if output file cannot be found.
+	 */
 	public void write() throws IOException {
 		StringBuffer log = new StringBuffer();
 
@@ -75,10 +101,18 @@ public class GraphLog {
 
 	}
 
+	/*
+	 * Creates a horizontal rule
+	 */
 	private String horizontalRule() {
 		return "------------------------------------\n";
 	}
 
+	/**
+	 * Converts the 2D boolean adjacency matrix to a String for streaming.
+	 * 
+	 * @return String of the adjacency matrix.
+	 */
 	private String matrixToString() {
 		StringBuffer sb = new StringBuffer();
 
@@ -96,6 +130,9 @@ public class GraphLog {
 		return sb.toString();
 	}
 
+	/**
+	 * Creates the headers for the possible paths in the graph
+	 */
 	private void createHeaders() {
 		String template = "Path(s) From %d to %d: \n";
 
@@ -104,6 +141,10 @@ public class GraphLog {
 		}
 	}
 
+	/**
+	 * Contains all possible node combinations in the graph, regardless of whether
+	 * or not there are paths connecting the node.
+	 */
 	private void createRawHeaders() {
 		int numHeaders = adjMatrix.length;
 

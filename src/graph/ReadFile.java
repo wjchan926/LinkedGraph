@@ -5,7 +5,8 @@ import java.io.*;
 /**
  * This class reads the input data for the Graph adjacency matrices. There are
  * no Graph functions or calculations found in this class. This class is solely
- * used for read/write purposes.
+ * used for read/write purposes. It will also keep track of the number of
+ * matrices in the input file.
  * 
  * @author Wesley Chan
  *
@@ -48,7 +49,11 @@ public class ReadFile {
 	public String[] getFileLines() {
 		return fileLines;
 	}
-	
+
+	/**
+	 * Gets the number of matrices found in the source file
+	 * @return number of matrices in source file
+	 */
 	public int getNumMatrices() {
 		return numMatrices;
 	}
@@ -71,15 +76,19 @@ public class ReadFile {
 		input.close();
 
 	}
-	
+
+	/**
+	 * Calculates the number of matrices in the input source file.
+	 * This method mutates the numMatrices class variable.
+	 */
 	private void calcNumMatrices() {
 		int size = Integer.parseInt(fileLines[0]);
 		numMatrices++;
-		
-		for (int i = size+1; i < fileLines.length; i=i+size+1) {
+
+		for (int i = size + 1; i < fileLines.length; i = i + size + 1) {
 			numMatrices++;
 			size = Integer.parseInt(fileLines[i]);
-		}		
+		}
 	}
 
 	/**
