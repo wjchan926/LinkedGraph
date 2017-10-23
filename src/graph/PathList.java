@@ -137,8 +137,8 @@ public class PathList<T> {
 
 	/**
 	 * This method Overrides the toString() method. As an enhancement, it makes
-	 * recursive calls in order to return the data as a string since the list
-	 * can hold other lists
+	 * recursive call to the toString() override in order to return the data as
+	 * a string since the list can hold other lists
 	 */
 	@Override
 	public String toString() {

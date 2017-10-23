@@ -27,7 +27,7 @@ public class ReadFile {
 	 */
 	public ReadFile(String fileName) throws IOException {
 		f = new File(fileName);
-		fileLines = new String[countLines()+1];
+		fileLines = new String[countLines() + 1];
 		readFromFile();
 		calcNumMatrices();
 	}
@@ -52,6 +52,7 @@ public class ReadFile {
 
 	/**
 	 * Gets the number of matrices found in the source file
+	 * 
 	 * @return number of matrices in source file
 	 */
 	public int getNumMatrices() {
@@ -78,8 +79,8 @@ public class ReadFile {
 	}
 
 	/**
-	 * Calculates the number of matrices in the input source file.
-	 * This method mutates the numMatrices class variable.
+	 * Calculates the number of matrices in the input source file. This method
+	 * mutates the numMatrices class variable.
 	 */
 	private void calcNumMatrices() {
 		int size = Integer.parseInt(fileLines[0]);
@@ -92,8 +93,8 @@ public class ReadFile {
 	}
 
 	/**
-	 * Method that counts the number of lines in the data source file. It utilizes a
-	 * buffered binary read.
+	 * Method that counts the number of lines in the data source file. It
+	 * utilizes a buffered binary read.
 	 * 
 	 * @return count the number of lines in file
 	 * @throws IOException

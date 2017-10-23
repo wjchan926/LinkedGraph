@@ -16,7 +16,8 @@ public class Graph {
 	private boolean[] visitedVertex;
 
 	/**
-	 * Constructor for the graph class that takes 1 argument of type boolean[][].
+	 * Constructor for the graph class that takes 1 argument of type
+	 * boolean[][].
 	 * 
 	 * @param matrix
 	 *            is the adjacency matrix representation of the graph.
@@ -50,7 +51,8 @@ public class Graph {
 	/**
 	 * Returns the adjacency matrix of which the graph was constructed
 	 * 
-	 * @return adjacency matrix representation of the graph as a 2D boolean array
+	 * @return adjacency matrix representation of the graph as a 2D boolean
+	 *         array
 	 */
 	public boolean[][] getAdjMatrix() {
 		return adjMatrix;
@@ -72,9 +74,10 @@ public class Graph {
 	}
 
 	/**
-	 * This Overloaded private method Recursively traverses the graph and performs a
-	 * depth-first search. It keeps track of all possible paths from 1 vertex to
-	 * another in the graph. Utilizes a stack to keep track of the visiting nodes.
+	 * This Overloaded private method Recursively traverses the graph and
+	 * performs a depth-first search. It keeps track of all possible paths from
+	 * 1 vertex to another in the graph. Utilizes a stack to keep track of the
+	 * visiting nodes. This algorithm also handles disjointed graphs.
 	 * 
 	 * @param vertex
 	 *            start vertex
@@ -121,7 +124,8 @@ public class Graph {
 	private void visitedCode(PathList<Integer> path, int visiting) {
 		PathList<Integer> tempPath = new PathList<Integer>();
 		path.append(visiting);
-		// A copy of the path must be made be made because Java uses pass by reference
+		// A copy of the path must be made be made because Java uses pass by
+		// reference
 		tempPath = path.copy();
 		pathList.append(tempPath);
 	}

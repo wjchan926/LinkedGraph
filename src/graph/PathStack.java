@@ -32,7 +32,8 @@ public class PathStack<T> {
 	}
 
 	/**
-	 * Adds a vertex to the top of the stack. Increases the size of the stack by 1.
+	 * Adds a vertex to the top of the stack. Increases the size of the stack by
+	 * 1.
 	 * 
 	 * @param t
 	 *            data that will be associated with the node added
@@ -68,7 +69,8 @@ public class PathStack<T> {
 	/**
 	 * Returns but does not remove the top vertex of the stack
 	 * 
-	 * @return value of the vertex at top of the stack, null if the stack is empty
+	 * @return value of the vertex at top of the stack, null if the stack is
+	 *         empty
 	 */
 	public T peek() {
 		return isEmpty() ? null : top.data;
@@ -82,19 +84,19 @@ public class PathStack<T> {
 	private boolean isEmpty() {
 		return top == null;
 	}
-	
+
 	/**
-	 * This method Overrides the toString() method and is used for testing purposes.
-	 * It returns a string representation of the stack.
+	 * This method Overrides the toString() method and is used for testing
+	 * purposes. It returns a string representation of the stack.
 	 */
 	@Override
 	public String toString() {
 		Node currentNode = new Node();
 		currentNode = top;
-		
+
 		StringBuffer sb = new StringBuffer();
-		
-		while(currentNode != null) {
+
+		while (currentNode != null) {
 			sb.append(currentNode.data).append(" | ");
 			currentNode = currentNode.next;
 		}

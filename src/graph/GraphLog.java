@@ -39,8 +39,8 @@ public class GraphLog {
 	}
 
 	/**
-	 * Formats all the analyzed data and streams the data to the output file. Adds
-	 * line breaks and horizontal rules for readability.
+	 * Formats all the analyzed data and streams the data to the output file.
+	 * Adds line breaks and horizontal rules for readability.
 	 * 
 	 * @throws IOException
 	 *             if output file cannot be found.
@@ -69,8 +69,8 @@ public class GraphLog {
 
 	/**
 	 * Linear search through the entire path list and selects the paths with the
-	 * corresponding start and end vertices. This search has a time complexity of
-	 * O(n).
+	 * corresponding start and end vertices. This search has a time complexity
+	 * of O(n).
 	 * 
 	 * @param startVertex
 	 *            Start of path
@@ -142,8 +142,8 @@ public class GraphLog {
 	}
 
 	/**
-	 * Contains all possible node combinations in the graph, regardless of whether
-	 * or not there are paths connecting the node.
+	 * Contains all possible node combinations in the graph, regardless of
+	 * whether or not there are paths connecting the node.
 	 */
 	private void createRawHeaders() {
 		int numHeaders = adjMatrix.length;

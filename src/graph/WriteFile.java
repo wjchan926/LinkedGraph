@@ -3,9 +3,9 @@ package graph;
 import java.io.*;
 
 /**
- * This class writes the data to an output file for the Graph analysis.
- * There are no Graph functions or calculations found in this class. This
- * class is solely used for read/write purposes.
+ * This class writes the data to an output file for the Graph analysis. There
+ * are no Graph functions or calculations found in this class. This class is
+ * solely used for read/write purposes.
  * 
  * @author Wesley Chan
  *

@@ -25,8 +25,8 @@ public class MatrixParser {
 	/**
 	 * This method creates an adjacency matrix based on the source file data
 	 * 
-	 * @return a 2D boolean array that represents an adjacency matrix found in the
-	 *         input source file.
+	 * @return a 2D boolean array that represents an adjacency matrix found in
+	 *         the input source file.
 	 */
 	public boolean[][] parse() {
 		int matrixSize = Integer.parseInt(file.getFileLines()[currentLine]);

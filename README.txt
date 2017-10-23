@@ -4,21 +4,24 @@ IDE: Eclipse Neon
 Java Version 8
 
 ==Description==
-There are 8 .java files associated wtih this package.
+There are 8 .java files associated with this package.
 There are 2 input.txt files associated with the package for testing purposes.
 There are 2 sample output.txt files for reference.
 The input and output files are located in the ..\Graph\ folder.
 
-The original .txt input file provided to the studends is named PathsGraphInput.txt
+Javadoc is provided with the package and is located in ..\Graph\doc\
+All class files are located in ..\Graph\src
+
+The original .txt input file provided to the students is named PathsGraphInput.txt
 The second input file is custom and used for testing purposes.
 
 
 ==How to Use==
 The Driver file that contains the main() method is named GraphDriver.java.
 
-The driver accepts 2 commandline arguments.  
+The driver accepts 2 command line arguments.  
 The first argument is the input data source filepath.
-The second arugment will be the name of the output source filepath.
+The second argument will be the name of the output source filepath.
 These can be absolute file paths on the computer as long as the user as access to those directories.
 
 If a user wishes to use their own data, please refer to the ==Input Data Format== section.
@@ -39,6 +42,7 @@ Number of Vertices in the Graph.
 An Adjacency matrix of the Graph.
 
 This can be repeated, but must follow the form above.
+There can be no blank lines at the end of the input files.
 
 Example:
 2
