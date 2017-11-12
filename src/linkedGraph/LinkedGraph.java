@@ -13,7 +13,7 @@ public class LinkedGraph {
 	private int numVertex;
 	private PathList<Integer>[] adjList;
 	private PathList<PathList<Integer>> pathList;
-	private boolean[] visitedVertex;
+	//private boolean[] visitedVertex;
 	private PathStack<Integer> pathStack;
 
 	/**
@@ -24,7 +24,7 @@ public class LinkedGraph {
 	 */
 	LinkedGraph(PathList<Integer>[] list) {
 		numVertex = list.length;
-		visitedVertex = new boolean[numVertex];
+//		visitedVertex = new boolean[numVertex];
 		adjList = list;
 		pathStack = new PathStack<Integer>();
 		pathList = new PathList<PathList<Integer>>();
@@ -64,7 +64,8 @@ public class LinkedGraph {
 	public void traverse(int i) {
 		PathList<Integer> path = new PathList<Integer>();
 		path.append(i);		
-		visitedVertex[i] = true;
+		pathStack.push(i);
+		adjList[i].getHead().setVisited(true);
 		traverse(adjList[i].getHead(), path, i);
 	}
 
@@ -88,18 +89,19 @@ public class LinkedGraph {
 		
 		while (currentVertex != null) {
 			
-			if (!visitedVertex[currentVertex.getData()]) {
-				System.out.println("MileA");
+			if (!currentVertex.getVisited()) {
+			//	System.out.println("MileA");
 				visitedCode(path, currentVertex.getData());	
 				
-				visitedVertex[currentVertex.getData()] = true;
+				currentVertex.setVisited(true);
 								
 				traverse(adjList[currentVertex.getData()].getHead(), path, current);
 			}
-			
-				if (currentVertex.getNext() == null) {
-					visitedVertex[currentVertex.getData()] = false;
-				}
+				
+			if (currentVertex.getNext() == null) {
+				currentVertex.setVisited(false);
+			}
+				
 				currentVertex = currentVertex.getNext();
 			
 		}

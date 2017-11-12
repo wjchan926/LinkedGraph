@@ -39,7 +39,7 @@ public class LinkedGraphDriver {
 
 			// Analyze all possible paths in the graph
 			for (int j = 0; j < graph.getNumVertex(); j++) {
-				System.out.println("Mile1");
+		//		System.out.println("Mile1");
 				graph.traverse(j);
 			}
 			
