@@ -1,4 +1,4 @@
-package graph;
+package linkedGraph;
 
 import java.io.IOException;
 
@@ -9,15 +9,15 @@ import java.io.IOException;
  * @author Wesley Chan
  *
  */
-public class GraphDriver {
+public class LinkedGraphDriver {
 	/**
-	 * The main() method takes 2 command line arguments. The first argument is
-	 * the input source filepath. The second argument is the output filepath.
-	 * These filepaths should be absolute.
+	 * The main() method takes 2 command line arguments. The first argument is the
+	 * input source filepath. The second argument is the output filepath. These
+	 * filepaths should be absolute.
 	 * 
 	 * @param args
-	 *            first argument is the input source txt file, the second
-	 *            argument is the out source filepath
+	 *            first argument is the input source txt file, the second argument
+	 *            is the out source filepath
 	 * @throws IOException
 	 *             if the files cannot be found.
 	 */
@@ -35,16 +35,19 @@ public class GraphDriver {
 		// Run analysis for every matrix found in the input source file
 		for (int i = 0; i < sourceFile.getNumMatrices(); i++) {
 			// Create new graph from adjacency matrix
-			Graph graph = new Graph(matrixParser.parse());
+			LinkedGraph graph = new LinkedGraph(matrixParser.parse());
 
 			// Analyze all possible paths in the graph
 			for (int j = 0; j < graph.getNumVertex(); j++) {
+				System.out.println("Mile1");
 				graph.traverse(j);
 			}
+			
 
 			// Log the analysis
-			GraphLog graphLog = new GraphLog(graph.getAdjMatrix(), graph.getPathList().toString(), outputFile);
-
+			LinkedGraphLog graphLog = new LinkedGraphLog(graph.getAdjList(), graph.getPathList().toString(),
+					outputFile);
+	
 			// Write the log data to the output file
 			graphLog.write();
 		}

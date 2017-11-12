@@ -1,6 +1,8 @@
-package graph;
+package linkedGraph;
 
 import java.io.IOException;
+
+
 
 /**
  * This Log class is responsible for formatting the graph analysis data and
@@ -10,8 +12,8 @@ import java.io.IOException;
  * @author Wesley Chan
  *
  */
-public class GraphLog {
-	private boolean[][] adjMatrix;
+public class LinkedGraphLog {
+	private PathList<Integer>[] adjList;
 	private String paths;
 	private WriteFile outputFile;
 	private int[][] rawHeaders;
@@ -29,11 +31,11 @@ public class GraphLog {
 	 * @param outputFile
 	 *            is the output file
 	 */
-	GraphLog(boolean[][] adjMatrix, String paths, WriteFile outputFile) {
-		this.adjMatrix = adjMatrix;
+	LinkedGraphLog(PathList<Integer>[] adjList, String paths, WriteFile outputFile) {
+		this.adjList = adjList;
 		this.paths = paths;
 		this.outputFile = outputFile;
-		headers = new String[adjMatrix.length * adjMatrix.length];
+		headers = new String[adjList.length * adjList.length];
 		createRawHeaders();
 		createHeaders();
 	}
@@ -53,7 +55,7 @@ public class GraphLog {
 		log.append("Matrix " + counter + "\r\n");
 		counter++;
 		log.append(horizontalRule());
-		log.append(matrixToString());
+		log.append(listToString());
 		log.append(horizontalRule());
 		// List possible pathways
 		for (int row = 0; row < headers.length; row++) {
@@ -113,9 +115,22 @@ public class GraphLog {
 	 * 
 	 * @return String of the adjacency matrix.
 	 */
-	private String matrixToString() {
+	private String listToString() {
 		StringBuffer sb = new StringBuffer();
-
+		
+		boolean[][] adjMatrix = new boolean[adjList.length][adjList.length];
+		
+		@SuppressWarnings("rawtypes")
+		Node currentNode = adjList[0].getHead();
+		
+		// Convert Adjacency List to Matrix
+		for (int row = 0; row < adjList.length; row++) {
+			while (currentNode.getNext() != null) {
+				adjMatrix[row][(int) currentNode.getData()] = true;
+			}
+		}
+		
+		// Convert matrix to string for streaming
 		for (int row = 0; row < adjMatrix.length; row++) {
 			for (int col = 0; col < adjMatrix[row].length; col++) {
 				if (adjMatrix[row][col]) {
@@ -146,7 +161,7 @@ public class GraphLog {
 	 * whether or not there are paths connecting the node.
 	 */
 	private void createRawHeaders() {
-		int numHeaders = adjMatrix.length;
+		int numHeaders = adjList.length;
 
 		int n = numHeaders * numHeaders;
 		rawHeaders = new int[n][2];

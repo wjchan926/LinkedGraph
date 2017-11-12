@@ -1,4 +1,5 @@
-package graph;
+package linkedGraph;
+
 
 /**
  * Generic List class that is customized for the Graph data structure. Typical
@@ -10,22 +11,10 @@ package graph;
  */
 public class PathList<T> {
 
-	private Node head;
-	private Node tail;
+	private Node<T> head;
+	private Node<T> tail;
 	private int size;
-
-	/**
-	 * Generic node class.
-	 * 
-	 * @author wchan
-	 *
-	 */
-	private class Node {
-		private T data;
-		private Node prev;
-		private Node next;
-	}
-
+	
 	/**
 	 * Default constructor for PathList class.
 	 */
@@ -35,6 +24,7 @@ public class PathList<T> {
 		size = 0;
 	}
 
+	
 	/**
 	 * Gets the size of the list.
 	 * 
@@ -49,7 +39,7 @@ public class PathList<T> {
 	 * 
 	 * @return the first Node in the list
 	 */
-	public Node getHead() {
+	public Node<T> getHead() {
 		return head;
 	}
 
@@ -58,10 +48,10 @@ public class PathList<T> {
 	 * 
 	 * @return the last Node in the list.
 	 */
-	public Node getTail() {
+	public Node<T> getTail() {
 		return tail;
-	}
-
+	}	
+	
 	/**
 	 * Adds an element to the end of the list. Increases the size of the list.
 	 * 
@@ -70,26 +60,25 @@ public class PathList<T> {
 	 */
 	public void append(T t) {
 		if (isEmpty()) {
-			Node tempNode = new Node();
-			tempNode.data = t;
-			tempNode.next = null;
-			tempNode.prev = null;
+			Node<T> tempNode = new Node<T>();
+			tempNode.setData(t);
+			tempNode.setNext(null);
+			tempNode.setPrev(null);
 			head = tempNode;
 			tail = tempNode;
 			size++;
 
 		} else {
-			Node tempNode = new Node();
-			tempNode.data = t;
-			tempNode.next = null;
-			tail.next = tempNode;
-			tempNode.prev = tail;
+			Node<T> tempNode = new Node<T>();
+			tempNode.setData(t);
+			tempNode.setNext(null);
+			tail.setNext(tempNode);
+			tempNode.setPrev(tail);
 			tail = tempNode;
 			size++;
 		}
-
 	}
-
+	
 	/**
 	 * Remove the last element of the list without returning the value.
 	 */
@@ -100,12 +89,19 @@ public class PathList<T> {
 			head = null;
 			tail = null;
 		} else {
-			tail = tail.prev;
-			tail.next.prev = null;
-			tail.next = null;
+			tail = tail.getPrev();
+			tail.getNext().setPrev(null);
+			tail.setNext(null);
 			size--;
 		}
 
+	}
+	
+	public boolean contains(T t) {
+		boolean b = false;
+		// Search for element in list
+		
+		return b; 
 	}
 
 	/**
@@ -116,11 +112,11 @@ public class PathList<T> {
 	public PathList<T> copy() {
 		PathList<T> tempPathList = new PathList<T>();
 
-		Node currentNode = head;
+		Node<T> currentNode = head;
 
 		while (currentNode != null) {
-			tempPathList.append(currentNode.data);
-			currentNode = currentNode.next;
+			tempPathList.append(currentNode.getData());
+			currentNode = currentNode.getNext();
 		}
 
 		return tempPathList;
@@ -137,30 +133,32 @@ public class PathList<T> {
 
 	/**
 	 * This method Overrides the toString() method. As an enhancement, it makes
-	 * recursive call to the toString() override in order to return the data as
-	 * a string since the list can hold other lists
+	 * recursive call to the toString() override in order to return the data as a
+	 * string since the list can hold other lists
 	 */
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		Node currentNode = head;
+		Node<T> currentNode = head;
 
 		if (isEmpty()) {
 			return sb.append("No Pathways in Graph.").toString();
 		} else {
-			while (currentNode != null && currentNode.data != null) {
-				if (currentNode.data instanceof PathList) {
-					sb.append(currentNode.data.toString());
+			while (currentNode != null && currentNode.getData() != null) {
+				if (currentNode.getData() instanceof PathList) {
+					sb.append(currentNode.getData().toString());
 					sb.append("\r\n");
 				} else {
-					sb.append(currentNode.data);
+					sb.append(currentNode.getData());
 					if (currentNode != tail) {
 						sb.append(" -> ");
 					}
 				}
-				currentNode = currentNode.next;
+				currentNode = currentNode.getNext();
 			}
 		}
 		return sb.toString().trim();
 	}
+
+	
 }

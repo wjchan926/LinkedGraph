@@ -1,4 +1,4 @@
-package graph;
+package linkedGraph;
 
 /**
  * Generic Stack class that will be used to mark the nodes when traversing the
@@ -81,7 +81,7 @@ public class PathStack<T> {
 	 * 
 	 * @return true if the stack is empty, false otherwise
 	 */
-	private boolean isEmpty() {
+	public boolean isEmpty() {
 		return top == null;
 	}
 

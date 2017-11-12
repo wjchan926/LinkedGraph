@@ -1,4 +1,4 @@
-package graph;
+package linkedGraph;
 
 import java.io.*;
 

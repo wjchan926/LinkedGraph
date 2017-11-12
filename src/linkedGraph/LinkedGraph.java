@@ -1,32 +1,32 @@
-package graph;
+package linkedGraph;
 
 /**
  * This is a custom graph class that creates a Directed Graph data structure
- * from an adjacency matrix representation.
+ * from an adjacency list representation. It will store the information as an
+ * adjacency list.
  * 
  * @author Wesley Chan
  *
  */
-public class Graph {
+public class LinkedGraph {
 
 	private int numVertex;
-	private boolean[][] adjMatrix;
-	private PathStack<Integer> pathStack;
+	private PathList<Integer>[] adjList;
 	private PathList<PathList<Integer>> pathList;
 	private boolean[] visitedVertex;
+	private PathStack<Integer> pathStack;
 
 	/**
-	 * Constructor for the graph class that takes 1 argument of type
-	 * boolean[][].
+	 * Constructor for the graph class that takes 1 argument of type PathList<PathList<Integer>>.
 	 * 
-	 * @param matrix
-	 *            is the adjacency matrix representation of the graph.
+	 * @param list
+	 *            is the adjacency list representation of the graph.
 	 */
-	Graph(boolean[][] matrix) {
-		numVertex = matrix.length;
-		adjMatrix = matrix;
-		pathStack = new PathStack<Integer>();
+	LinkedGraph(PathList<Integer>[] list) {
+		numVertex = list.length;
 		visitedVertex = new boolean[numVertex];
+		adjList = list;
+		pathStack = new PathStack<Integer>();
 		pathList = new PathList<PathList<Integer>>();
 	}
 
@@ -39,6 +39,10 @@ public class Graph {
 		return pathList;
 	}
 
+	public PathList<Integer>[] getAdjList(){
+		return adjList;
+	}
+	
 	/**
 	 * Returns the number of vertices in the graph
 	 * 
@@ -46,16 +50,6 @@ public class Graph {
 	 */
 	public int getNumVertex() {
 		return numVertex;
-	}
-
-	/**
-	 * Returns the adjacency matrix of which the graph was constructed
-	 * 
-	 * @return adjacency matrix representation of the graph as a 2D boolean
-	 *         array
-	 */
-	public boolean[][] getAdjMatrix() {
-		return adjMatrix;
 	}
 
 	/**
@@ -69,15 +63,16 @@ public class Graph {
 	 */
 	public void traverse(int i) {
 		PathList<Integer> path = new PathList<Integer>();
-		path.append(i);
-		traverse(i, path, i);
+		path.append(i);		
+		visitedVertex[i] = true;
+		traverse(adjList[i].getHead(), path, i);
 	}
 
 	/**
-	 * This Overloaded private method Recursively traverses the graph and
-	 * performs a depth-first search. It keeps track of all possible paths from
-	 * 1 vertex to another in the graph. Utilizes a stack to keep track of the
-	 * visiting nodes. This algorithm also handles disjointed graphs.
+	 * This Overloaded private method Recursively traverses the graph and performs a
+	 * depth-first search. It keeps track of all possible paths from 1 vertex to
+	 * another in the graph. Utilizes a stack to keep track of the visiting nodes.
+	 * This algorithm also handles disjointed graphs.
 	 * 
 	 * @param vertex
 	 *            start vertex
@@ -86,7 +81,30 @@ public class Graph {
 	 * @param current
 	 *            the initial start vertex
 	 */
-	private void traverse(int vertex, PathList<Integer> path, int current) {
+	private void traverse(Node<Integer> currentVertex, PathList<Integer> path, int current) {
+		// DFS, Recursive
+		
+		pathStack.push(currentVertex.getData());		
+		
+		while (currentVertex != null) {
+			
+			if (!visitedVertex[currentVertex.getData()]) {
+				System.out.println("MileA");
+				visitedCode(path, currentVertex.getData());	
+				
+				visitedVertex[currentVertex.getData()] = true;
+								
+				traverse(adjList[currentVertex.getData()].getHead(), path, current);
+			}
+			
+				if (currentVertex.getNext() == null) {
+					visitedVertex[currentVertex.getData()] = false;
+				}
+				currentVertex = currentVertex.getNext();
+			
+		}
+		
+/*
 		// DFS, Must be Recursive
 
 		pathStack.push(vertex);
@@ -110,6 +128,11 @@ public class Graph {
 		path.removeLast();
 		visitedVertex[vertex] = false;
 
+		}*/
+		
+		pathStack.pop();
+		path.removeLast();
+	//	visitedVertex[currentVertex.getData()] = false;
 	}
 
 	/**
