@@ -88,32 +88,41 @@ public class LinkedGraph {
 		pathStack.push(i);		
 		
 		while (!pathStack.isEmpty()) {			
-			int vertex = pathStack.pop();			
-			
+			int vertex = pathStack.pop();
+									
 			if (!visitedVertex[vertex]) {			
-				
-				
-				visitedCode(path, vertex);
-				
-				
+								
+				visitedCode(path, vertex);				
 				visitedVertex[vertex] = true;
 				
 				PathStack<Integer> adjPathStack = new PathStack<Integer>();
 				Node<Integer> currentNode = new Node<Integer>();
 				currentNode = adjList[vertex].getHead();
 				
+				// Add adjacent vertices
 				while(currentNode != null) {
-					
+					// Self Cycle case
+					if (currentNode.getData() == i) {
+						visitedCode(path, currentNode.getData());
+						path.removeLast();
+					}
+										
 					if (!visitedVertex[currentNode.getData()]) {
 						adjPathStack.push(currentNode.getData());
 					}
 					currentNode = currentNode.getNext();
 				}
 				
+				if (adjPathStack.isEmpty()) {
+					path.removeLast();					
+					visitedVertex[vertex] = false;
+				}				
+				
 				while(!adjPathStack.isEmpty()) {
 					pathStack.push(adjPathStack.pop());
 				}
 			}
+			
 		}				
 	}
 
@@ -132,6 +141,8 @@ public class LinkedGraph {
 		// A copy of the path must be made be made because Java uses pass by
 		// reference
 		tempPath = path.copy();
+		
+		
 		if (tempPath.getSize() != 1) {
 			pathList.append(tempPath);
 		}
