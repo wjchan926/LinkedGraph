@@ -2,8 +2,6 @@ package linkedGraph;
 
 import java.io.IOException;
 
-
-
 /**
  * This Log class is responsible for formatting the graph analysis data and
  * streaming it to the output file. Output file formatting is all controlled
@@ -23,9 +21,9 @@ public class LinkedGraphLog {
 	/**
 	 * Constructor for the GraphLog class that accepts 3 arguments.
 	 * 
-	 * @param adjMatrix
-	 *            is a 2D boolean array of the adjacency matrix that was used to
-	 *            create a Directed Graph data structure
+	 * @param adjList
+	 *            is an array of linked lists that was used to create a Directed
+	 *            Graph data structure
 	 * @param paths
 	 *            is a String all possible paths from the analyzed graph
 	 * @param outputFile
@@ -59,10 +57,8 @@ public class LinkedGraphLog {
 		log.append(horizontalRule());
 		// List possible pathways
 		for (int row = 0; row < headers.length; row++) {
-			log.append(headers[row]);
-			// for (int vertices = 0; vertices < adjMatrix.length; vertices++) {
-			log.append(linearSearch(Integer.toString(rawHeaders[row][0]), Integer.toString(rawHeaders[row][1])));
-			// }
+			log.append(headers[row]);	
+			log.append(linearSearch(Integer.toString(rawHeaders[row][0]), Integer.toString(rawHeaders[row][1])));		
 			log.append(horizontalRule());
 		}
 		log.append("\r\n");
@@ -111,19 +107,19 @@ public class LinkedGraphLog {
 	}
 
 	/**
-	 * Converts the 2D boolean adjacency matrix to a String for streaming.
+	 * Converts the Adjacency List to a String for streaming.
 	 * 
-	 * @return String of the adjacency matrix.
+	 * @return String of the adjacency list
 	 */
 	private String listToString() {
 		StringBuffer sb = new StringBuffer();
-		
+
 		boolean[][] adjMatrix = new boolean[adjList.length][adjList.length];
-				
+
 		Node<Integer> currentNode = new Node<Integer>();
 		currentNode = adjList[0].getHead();
-		
-		// Convert Adjacency List to Matrix
+
+		// Convert Adjacency List to Matrix First
 		for (int row = 0; row < adjList.length; row++) {
 			currentNode = adjList[row].getHead();
 			while (currentNode != null) {
@@ -131,8 +127,8 @@ public class LinkedGraphLog {
 				currentNode = currentNode.getNext();
 			}
 		}
-		
-		// Convert matrix to string for streaming
+
+		// Then Convert matrix to string for streaming
 		for (int row = 0; row < adjMatrix.length; row++) {
 			for (int col = 0; col < adjMatrix[row].length; col++) {
 				if (adjMatrix[row][col]) {

@@ -1,9 +1,8 @@
 package linkedGraph;
 
 /**
- * This is a custom graph class that creates a Directed Graph data structure
- * from an adjacency list representation. It will store the information as an
- * adjacency list.
+ * This is a custom graph class that creates a Directed Graph data structure. It
+ * will store the information as an adjacency list.
  * 
  * @author Wesley Chan
  *
@@ -13,12 +12,10 @@ public class LinkedGraph {
 	private int numVertex;
 	private PathList<Integer>[] adjList;
 	private PathList<PathList<Integer>> pathList;
-	//private PathList<Integer> path;
 	private boolean[] visitedVertex;
 
-
 	/**
-	 * Constructor for the graph class that takes 1 argument of type PathList<PathList<Integer>>.
+	 * Constructor for the graph class that takes 1 argument of type PathList[].
 	 * 
 	 * @param list
 	 *            is the adjacency list representation of the graph.
@@ -26,7 +23,7 @@ public class LinkedGraph {
 	LinkedGraph(PathList<Integer>[] list) {
 		numVertex = list.length;
 		visitedVertex = new boolean[numVertex];
-		adjList = list;		
+		adjList = list;
 		pathList = new PathList<PathList<Integer>>();
 	}
 
@@ -39,10 +36,15 @@ public class LinkedGraph {
 		return pathList;
 	}
 
-	public PathList<Integer>[] getAdjList(){
+	/**
+	 * Returns the adjacency list representation of the graph
+	 * 
+	 * @return adjacency list representation of the graph
+	 */
+	public PathList<Integer>[] getAdjList() {
 		return adjList;
 	}
-	
+
 	/**
 	 * Returns the number of vertices in the graph
 	 * 
@@ -59,19 +61,21 @@ public class LinkedGraph {
 	 * 
 	 * @param i
 	 *            starting vertex. This should always be the first vertex of the
-	 *            adjacency matrix
+	 *            adjacency list
 	 */
 	public void traverse(int i) {
 		PathList<Integer> path = new PathList<Integer>();
 		path.append(i);
+		// Custom cases graphs with a link to itself and completely disjointed
+		// graphs
 		traverse(i, path, i);
 	}
 
 	/**
-	 * This Overloaded private method Recursively traverses the graph and performs a
-	 * depth-first search. It keeps track of all possible paths from 1 vertex to
-	 * another in the graph. Utilizes a stack to keep track of the visiting nodes.
-	 * This algorithm also handles disjointed graphs.
+	 * This Overloaded private method Recursively traverses the graph and
+	 * performs a depth-first search. It keeps track of all possible paths from
+	 * 1 vertex to another in the graph. Utilizes a stack to keep track of the
+	 * visiting nodes. This algorithm also handles disjointed graphs.
 	 * 
 	 * @param vertex
 	 *            start vertex
@@ -81,26 +85,27 @@ public class LinkedGraph {
 	 *            the initial start vertex
 	 */
 	private void traverse(int vertex, PathList<Integer> path, int current) {
-		//DFS Recursive
+		// DFS Recursive
 		visitedVertex[vertex] = true;
-		
+
 		Node<Integer> currentNode = new Node<Integer>();
-		
+
 		currentNode = adjList[vertex].getHead();
-		while(currentNode != null){
+
+		while (currentNode != null) {
 			if (currentNode.getData() == current) {
 				visitedCode(path, currentNode.getData());
-				path.removeLast();	
+				path.removeLast();
 			}
-			if (!visitedVertex[currentNode.getData()]){
+			if (!visitedVertex[currentNode.getData()]) {
 				visitedCode(path, currentNode.getData());
 				traverse(currentNode.getData(), path, current);
 			}
 			currentNode = currentNode.getNext();
 		}
-		
+
 		path.removeLast();
-		visitedVertex[vertex] = false;				
+		visitedVertex[vertex] = false;
 	}
 
 	/**

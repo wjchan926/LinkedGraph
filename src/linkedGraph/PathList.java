@@ -1,10 +1,10 @@
 package linkedGraph;
 
-
 /**
  * Generic List class that is customized for the Graph data structure. Typical
- * methods for Lists are omitted if unused. This class can be used to hold both
- * the possible paths between 2 nodes and all possible paths in a matrix.
+ * methods for Lists are omitted if unused. This class can be used to hold the
+ * possible paths between 2 vertices, all possible paths in the adjacency list,
+ * and a list of each vertex's adjacent vertices.
  * 
  * @author wchan
  *
@@ -14,7 +14,7 @@ public class PathList<T> {
 	private Node<T> head;
 	private Node<T> tail;
 	private int size;
-	
+
 	/**
 	 * Default constructor for PathList class.
 	 */
@@ -24,7 +24,6 @@ public class PathList<T> {
 		size = 0;
 	}
 
-	
 	/**
 	 * Gets the size of the list.
 	 * 
@@ -50,8 +49,8 @@ public class PathList<T> {
 	 */
 	public Node<T> getTail() {
 		return tail;
-	}	
-	
+	}
+
 	/**
 	 * Adds an element to the end of the list. Increases the size of the list.
 	 * 
@@ -78,7 +77,7 @@ public class PathList<T> {
 			size++;
 		}
 	}
-	
+
 	/**
 	 * Remove the last element of the list without returning the value.
 	 */
@@ -95,13 +94,6 @@ public class PathList<T> {
 			size--;
 		}
 
-	}
-	
-	public boolean contains(T t) {
-		boolean b = false;
-		// Search for element in list
-		
-		return b; 
 	}
 
 	/**
@@ -133,8 +125,8 @@ public class PathList<T> {
 
 	/**
 	 * This method Overrides the toString() method. As an enhancement, it makes
-	 * recursive call to the toString() override in order to return the data as a
-	 * string since the list can hold other lists
+	 * recursive call to the toString() override in order to return the data as
+	 * a string since the list can hold other lists
 	 */
 	@Override
 	public String toString() {
@@ -142,6 +134,7 @@ public class PathList<T> {
 		Node<T> currentNode = head;
 
 		if (isEmpty()) {
+			// Special Case for No Pathways
 			return sb.append("No Pathways in Graph.").toString();
 		} else {
 			while (currentNode != null && currentNode.getData() != null) {
@@ -160,5 +153,4 @@ public class PathList<T> {
 		return sb.toString().trim();
 	}
 
-	
 }
