@@ -1,4 +1,4 @@
-===Lab 2: Graph Recursion===
+===Lab 3: Graph Linked Implementation===
 Created by: Wesley Chan
 IDE: Eclipse Neon
 Java Version 8
@@ -7,17 +7,17 @@ Java Version 8
 There are 8 .java files associated with this package.
 There are 2 input.txt files associated with the package for testing purposes.
 There are 2 sample output.txt files for reference.
-The input and output files are located in the ..\Graph\ folder.
+The input and output files are located in the ..\LinkedGraph\ folder.
 
-Javadoc is provided with the package and is located in ..\Graph\doc\
-All class files are located in ..\Graph\src
+Javadoc is provided with the package and is located in ..\LinkedGraph\doc\
+All class files are located in ..\LinkedGraph\src
 
 The original .txt input file provided to the students is named PathsGraphInput.txt
 The second input file is custom and used for testing purposes.
 
 
 ==How to Use==
-The Driver file that contains the main() method is named GraphDriver.java.
+The Driver file that contains the main() method is named LinkedGraphDriver.java.
 
 The driver accepts 2 command line arguments.  
 The first argument is the input data source filepath.
