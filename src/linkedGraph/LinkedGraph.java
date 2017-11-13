@@ -13,8 +13,8 @@ public class LinkedGraph {
 	private int numVertex;
 	private PathList<Integer>[] adjList;
 	private PathList<PathList<Integer>> pathList;
-	private PathList<Integer> path;
-	//private boolean[] visitedVertex;
+	//private PathList<Integer> path;
+	private boolean[] visitedVertex;
 
 
 	/**
@@ -25,7 +25,7 @@ public class LinkedGraph {
 	 */
 	LinkedGraph(PathList<Integer>[] list) {
 		numVertex = list.length;
-	//	visitedVertex = new boolean[numVertex];
+		visitedVertex = new boolean[numVertex];
 		adjList = list;		
 		pathList = new PathList<PathList<Integer>>();
 	}
@@ -62,7 +62,9 @@ public class LinkedGraph {
 	 *            adjacency matrix
 	 */
 	public void traverse(int i) {
-		traverse(i, i);
+		PathList<Integer> path = new PathList<Integer>();
+		path.append(i);
+		traverse(i, path, i);
 	}
 
 	/**
@@ -78,52 +80,27 @@ public class LinkedGraph {
 	 * @param current
 	 *            the initial start vertex
 	 */
-	private void traverse(int i, int current) {
-		// DFS, Iterative
-		boolean[] visitedVertex = new boolean[adjList.length];
+	private void traverse(int vertex, PathList<Integer> path, int current) {
+		//DFS Recursive
+		visitedVertex[vertex] = true;
 		
-		PathStack<Integer> pathStack = new PathStack<Integer>();
-		path = new PathList<Integer>();
+		Node<Integer> currentNode = new Node<Integer>();
 		
-		pathStack.push(i);		
-		
-		while (!pathStack.isEmpty()) {			
-			int vertex = pathStack.pop();
-									
-			if (!visitedVertex[vertex]) {			
-								
-				visitedCode(path, vertex);				
-				visitedVertex[vertex] = true;
-				
-				PathStack<Integer> adjPathStack = new PathStack<Integer>();
-				Node<Integer> currentNode = new Node<Integer>();
-				currentNode = adjList[vertex].getHead();
-				
-				// Add adjacent vertices
-				while(currentNode != null) {
-					// Self Cycle case
-					if (currentNode.getData() == i) {
-						visitedCode(path, currentNode.getData());
-						path.removeLast();
-					}
-										
-					if (!visitedVertex[currentNode.getData()]) {
-						adjPathStack.push(currentNode.getData());
-					}
-					currentNode = currentNode.getNext();
-				}
-				
-				if (adjPathStack.isEmpty()) {
-					path.removeLast();					
-					visitedVertex[vertex] = false;
-				}				
-				
-				while(!adjPathStack.isEmpty()) {
-					pathStack.push(adjPathStack.pop());
-				}
+		currentNode = adjList[vertex].getHead();
+		while(currentNode != null){
+			if (currentNode.getData() == current) {
+				visitedCode(path, currentNode.getData());
+				path.removeLast();	
 			}
-			
-		}				
+			if (!visitedVertex[currentNode.getData()]){
+				visitedCode(path, currentNode.getData());
+				traverse(currentNode.getData(), path, current);
+			}
+			currentNode = currentNode.getNext();
+		}
+		
+		path.removeLast();
+		visitedVertex[vertex] = false;				
 	}
 
 	/**
@@ -141,11 +118,7 @@ public class LinkedGraph {
 		// A copy of the path must be made be made because Java uses pass by
 		// reference
 		tempPath = path.copy();
-		
-		
-		if (tempPath.getSize() != 1) {
-			pathList.append(tempPath);
-		}
+		pathList.append(tempPath);
 	}
 
 }
