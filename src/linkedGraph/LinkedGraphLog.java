@@ -119,14 +119,16 @@ public class LinkedGraphLog {
 		StringBuffer sb = new StringBuffer();
 		
 		boolean[][] adjMatrix = new boolean[adjList.length][adjList.length];
-		
-		@SuppressWarnings("rawtypes")
-		Node currentNode = adjList[0].getHead();
+				
+		Node<Integer> currentNode = new Node<Integer>();
+		currentNode = adjList[0].getHead();
 		
 		// Convert Adjacency List to Matrix
 		for (int row = 0; row < adjList.length; row++) {
-			while (currentNode.getNext() != null) {
+			currentNode = adjList[row].getHead();
+			while (currentNode != null) {
 				adjMatrix[row][(int) currentNode.getData()] = true;
+				currentNode = currentNode.getNext();
 			}
 		}
 		

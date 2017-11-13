@@ -39,14 +39,11 @@ public class LinkedGraphDriver {
 
 			// Analyze all possible paths in the graph
 			for (int j = 0; j < graph.getNumVertex(); j++) {
-		//		System.out.println("Mile1");
 				graph.traverse(j);
-			}
-			
+			}		
 
 			// Log the analysis
-			LinkedGraphLog graphLog = new LinkedGraphLog(graph.getAdjList(), graph.getPathList().toString(),
-					outputFile);
+			LinkedGraphLog graphLog = new LinkedGraphLog(graph.getAdjList(), graph.getPathList().toString(), outputFile);
 	
 			// Write the log data to the output file
 			graphLog.write();

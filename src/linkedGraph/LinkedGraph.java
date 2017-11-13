@@ -13,8 +13,9 @@ public class LinkedGraph {
 	private int numVertex;
 	private PathList<Integer>[] adjList;
 	private PathList<PathList<Integer>> pathList;
+	private PathList<Integer> path;
 	//private boolean[] visitedVertex;
-	private PathStack<Integer> pathStack;
+
 
 	/**
 	 * Constructor for the graph class that takes 1 argument of type PathList<PathList<Integer>>.
@@ -24,9 +25,8 @@ public class LinkedGraph {
 	 */
 	LinkedGraph(PathList<Integer>[] list) {
 		numVertex = list.length;
-//		visitedVertex = new boolean[numVertex];
-		adjList = list;
-		pathStack = new PathStack<Integer>();
+	//	visitedVertex = new boolean[numVertex];
+		adjList = list;		
 		pathList = new PathList<PathList<Integer>>();
 	}
 
@@ -62,11 +62,7 @@ public class LinkedGraph {
 	 *            adjacency matrix
 	 */
 	public void traverse(int i) {
-		PathList<Integer> path = new PathList<Integer>();
-		path.append(i);		
-		pathStack.push(i);
-		adjList[i].getHead().setVisited(true);
-		traverse(adjList[i].getHead(), path, i);
+		traverse(i, i);
 	}
 
 	/**
@@ -82,59 +78,43 @@ public class LinkedGraph {
 	 * @param current
 	 *            the initial start vertex
 	 */
-	private void traverse(Node<Integer> currentVertex, PathList<Integer> path, int current) {
-		// DFS, Recursive
+	private void traverse(int i, int current) {
+		// DFS, Iterative
+		boolean[] visitedVertex = new boolean[adjList.length];
 		
-		pathStack.push(currentVertex.getData());		
+		PathStack<Integer> pathStack = new PathStack<Integer>();
+		path = new PathList<Integer>();
 		
-		while (currentVertex != null) {
+		pathStack.push(i);		
+		
+		while (!pathStack.isEmpty()) {			
+			int vertex = pathStack.pop();			
 			
-			if (!currentVertex.getVisited()) {
-			//	System.out.println("MileA");
-				visitedCode(path, currentVertex.getData());	
+			if (!visitedVertex[vertex]) {			
 				
-				currentVertex.setVisited(true);
-								
-				traverse(adjList[currentVertex.getData()].getHead(), path, current);
-			}
 				
-			if (currentVertex.getNext() == null) {
-				currentVertex.setVisited(false);
-			}
+				visitedCode(path, vertex);
 				
-				currentVertex = currentVertex.getNext();
-			
-		}
-		
-/*
-		// DFS, Must be Recursive
-
-		pathStack.push(vertex);
-		visitedVertex[vertex] = true;
-
-		for (int i = 0; i < numVertex; i++) {
-			// Case for if the node has a path to itself
-			if (i == current && adjMatrix[vertex][i]) {
-				visitedCode(path, i);
-				path.removeLast();
-				continue; // Must force loop to continue for this case
+				
+				visitedVertex[vertex] = true;
+				
+				PathStack<Integer> adjPathStack = new PathStack<Integer>();
+				Node<Integer> currentNode = new Node<Integer>();
+				currentNode = adjList[vertex].getHead();
+				
+				while(currentNode != null) {
+					
+					if (!visitedVertex[currentNode.getData()]) {
+						adjPathStack.push(currentNode.getData());
+					}
+					currentNode = currentNode.getNext();
+				}
+				
+				while(!adjPathStack.isEmpty()) {
+					pathStack.push(adjPathStack.pop());
+				}
 			}
-			if (adjMatrix[vertex][i] && !visitedVertex[i]) {
-				visitedCode(path, i);
-				// Recursive call
-				traverse(i, path, current);
-			}
-		}
-
-		pathStack.pop();
-		path.removeLast();
-		visitedVertex[vertex] = false;
-
-		}*/
-		
-		pathStack.pop();
-		path.removeLast();
-	//	visitedVertex[currentVertex.getData()] = false;
+		}				
 	}
 
 	/**
@@ -152,7 +132,9 @@ public class LinkedGraph {
 		// A copy of the path must be made be made because Java uses pass by
 		// reference
 		tempPath = path.copy();
-		pathList.append(tempPath);
+		if (tempPath.getSize() != 1) {
+			pathList.append(tempPath);
+		}
 	}
 
 }

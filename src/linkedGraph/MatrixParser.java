@@ -32,6 +32,7 @@ public class MatrixParser {
 
 		int listSize = Integer.parseInt(file.getFileLines()[currentLine]);
 
+		
 		@SuppressWarnings("unchecked")
 		PathList<Integer>[] adjList = new PathList[listSize];
 
@@ -60,24 +61,4 @@ public class MatrixParser {
 		return adjList;
 
 	}
-
-	/*	*//**
-			 * This method creates an adjacency matrix based on the source file data
-			 * 
-			 * @return a 2D boolean array that represents an adjacency matrix found in the
-			 *         input source file.
-			 *//*
-				 * public boolean[][] parse() { int matrixSize =
-				 * Integer.parseInt(file.getFileLines()[currentLine]); boolean[][] matrix = new
-				 * boolean[matrixSize][matrixSize];
-				 * 
-				 * for (int i = currentLine + 1; i < currentLine + matrixSize + 1; i++) { for
-				 * (int row = 0; row < matrix.length; row++) { String[] tempArr =
-				 * file.getFileLines()[i + row].split("\\s+"); for (int col = 0; col <
-				 * tempArr.length; col++) { matrix[row][col] = Integer.parseInt(tempArr[col]) !=
-				 * 0; } } i = i + matrixSize; } currentLine = currentLine + matrixSize + 1;
-				 * 
-				 * return matrix; }
-				 */
-
 }
